@@ -40,7 +40,12 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
-//...
+      onTap: () => Firestore.instance.runTransaction((transaction) async {
+            DocumentSnapshot freshSnap =
+                await transaction.get(document.reference);
+            await transaction
+                .update(freshSnap.reference, {'votes': freshSnap['votes'] + 1});
+          }),
     );
   }
 
