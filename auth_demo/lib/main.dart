@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:google_sign_in/google_sign_in.dart';
+
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
