@@ -112,6 +112,14 @@ class _MyHomePageState extends State<MyHomePage> {
               style: Theme.of(context).textTheme.display1,
             ),
             new RaisedButton(
+              child: new Text('Sign in'),
+              onPressed: () {
+                _handleSignInWithEmailAndPassword('test@test.com', 'password')
+                    .then((FirebaseUser user) => print(user))
+                    .catchError((e) => print(e));
+              },
+            ),
+            new RaisedButton(
               child: new Text('Sign in with Google'),
               onPressed: () {
                 _handleGoogleSignIn()
