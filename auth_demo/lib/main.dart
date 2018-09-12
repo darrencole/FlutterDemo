@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<FirebaseUser> _handleSignIn() async {
+  Future<FirebaseUser> _handleGoogleSignIn() async {
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
     FirebaseUser user = await _auth.signInWithGoogle(
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
             new RaisedButton(
               child: new Text('Sign in with Google'),
               onPressed: () {
-                _handleSignIn()
+                _handleGoogleSignIn()
                     .then((FirebaseUser user) => print(user))
                     .catchError((e) => print(e));
               },
