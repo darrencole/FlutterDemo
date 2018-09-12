@@ -60,6 +60,14 @@ class _MyHomePageState extends State<MyHomePage> {
               '',
               style: Theme.of(context).textTheme.display1,
             ),
+            new RaisedButton(
+              child: new Text('Sign in with Google'),
+              onPressed: () {
+                _handleSignIn()
+                    .then((FirebaseUser user) => print(user))
+                    .catchError((e) => print(e));
+              },
+            )
           ],
         ),
       ),
