@@ -38,8 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       if (currentUser != null) {
         _displayName = '${currentUser.displayName}';
-      }
-      else {
+      } else {
         _displayName = 'Not logged in';
       }
     });
@@ -61,6 +60,11 @@ class _MyHomePageState extends State<MyHomePage> {
     _setDisplayName();
 
     return user;
+  }
+
+  Future<void> _signOut() async {
+    await _auth.signOut();
+    _setDisplayName();
   }
 
   @override
@@ -88,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     .then((FirebaseUser user) => print(user))
                     .catchError((e) => print(e));
               },
-            )
+            ),
           ],
         ),
       ),
