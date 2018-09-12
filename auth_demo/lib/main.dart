@@ -31,6 +31,25 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String _displayName;
+
+  Future _setDisplayName() async {
+    final FirebaseUser currentUser = await _auth.currentUser();
+    setState(() {
+      if (currentUser != null) {
+        _displayName = '${currentUser.displayName}';
+      }
+      else {
+        _displayName = 'Not logged in';
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _setDisplayName();
+  }
 
   Future<FirebaseUser> _handleGoogleSignIn() async {
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
@@ -39,7 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    print("signed in " + user.displayName);
+    _setDisplayName();
+
     return user;
   }
 
@@ -54,10 +74,11 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Text(
-              '',
+              'Welcome',
+              style: Theme.of(context).textTheme.display1,
             ),
             new Text(
-              '',
+              _displayName,
               style: Theme.of(context).textTheme.display1,
             ),
             new RaisedButton(
