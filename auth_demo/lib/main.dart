@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(title: 'Sign In'),
+      home: new MyHomePage(title: 'Auth Demo Sign In'),
     );
   }
 }
