@@ -93,6 +93,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     .catchError((e) => print(e));
               },
             ),
+            new RaisedButton(
+              child: new Text('Sign out'),
+              onPressed: () => _signOut(),
+            ),
           ],
         ),
       ),
