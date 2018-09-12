@@ -50,8 +50,23 @@ class _MyHomePageState extends State<MyHomePage> {
     _setDisplayName();
   }
 
+  Future<FirebaseUser> _handleCreateUserWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    FirebaseUser user = await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+    _setDisplayName();
+
+    return user;
+  }
+
   Future<FirebaseUser> _handleSignInWithEmailAndPassword(
-      String email, String password) async {
+    String email,
+    String password,
+  ) async {
     FirebaseUser user = await _auth.signInWithEmailAndPassword(
       email: email,
       password: password,
