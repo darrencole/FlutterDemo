@@ -77,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<FirebaseUser> _handleGoogleSignIn() async {
+    await _googleSignIn.disconnect();
     GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     GoogleSignInAuthentication googleAuth = await googleUser.authentication;
     FirebaseUser user = await _auth.signInWithGoogle(
