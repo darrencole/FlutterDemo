@@ -32,6 +32,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String _displayName;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   Future _setDisplayName() async {
     final FirebaseUser currentUser = await _auth.currentUser();
@@ -111,6 +113,18 @@ class _MyHomePageState extends State<MyHomePage> {
             new Text(
               _displayName,
               style: Theme.of(context).textTheme.display1,
+            ),
+            new TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(
+                 hintText: 'Email',
+              ),
+            ),
+            new TextField(
+              controller: _passwordController,
+              decoration: const InputDecoration(
+                hintText: 'Password',
+              ),
             ),
             new RaisedButton(
               child: new Text('Sign in'),
