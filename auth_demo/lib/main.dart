@@ -65,13 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return user;
   }
 
-  Future<FirebaseUser> _handleSignInWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
+  Future<FirebaseUser> _handleSignInWithEmailAndPassword() async {
     FirebaseUser user = await _auth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
+      email: _emailController.text,
+      password: _passwordController.text,
     );
     _setDisplayName();
 
@@ -117,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
             new TextField(
               controller: _emailController,
               decoration: const InputDecoration(
-                 hintText: 'Email',
+                hintText: 'Email',
               ),
             ),
             new TextField(
@@ -129,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
             new RaisedButton(
               child: new Text('Sign in'),
               onPressed: () {
-                _handleSignInWithEmailAndPassword('test@test.com', 'password')
+                _handleSignInWithEmailAndPassword()
                     .then((FirebaseUser user) => print(user))
                     .catchError((e) => print(e));
               },
