@@ -123,6 +123,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Widget _errorMessageSection = Container(
+      padding: const EdgeInsets.all(32.0),
+      child: Text(
+        errorMessage,
+        style: new TextStyle(
+          color: Colors.red,
+          fontSize: 15.0,
+        ),
+        softWrap: true,
+      ),
+    );
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
@@ -138,10 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Text(
-              errorMessage,
-              //style:  Theme.of(context).textTheme.display1,
-            ),
+            _errorMessageSection,
             new Text(
               'Welcome',
               style: Theme.of(context).textTheme.display1,
