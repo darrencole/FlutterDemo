@@ -153,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     Widget _signInForm = new Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         new TextField(
           controller: _emailController,
@@ -192,6 +192,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
+        new RaisedButton(
+          child: new Text('Sign in with Google'),
+          onPressed: () {
+            _handleGoogleSignIn()
+                .then((FirebaseUser user) => print(user))
+                .catchError((e) => print(e));
+          },
+        ),
       ],
     );
 
@@ -213,14 +221,6 @@ class _MyHomePageState extends State<MyHomePage> {
             _errorMessageSection,
             _welcomeSection,
             _signInForm,
-            new RaisedButton(
-              child: new Text('Sign in with Google'),
-              onPressed: () {
-                _handleGoogleSignIn()
-                    .then((FirebaseUser user) => print(user))
-                    .catchError((e) => print(e));
-              },
-            ),
           ],
         ),
       ),
