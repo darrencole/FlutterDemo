@@ -154,6 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: const InputDecoration(
                 hintText: 'Password',
               ),
+              obscureText: true,
             ),
             new RaisedButton(
               child: new Text('Sign in'),
