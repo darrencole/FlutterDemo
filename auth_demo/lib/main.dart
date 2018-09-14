@@ -152,6 +152,49 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
+    Widget _signInForm = new Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        new TextField(
+          controller: _emailController,
+          decoration: const InputDecoration(
+            hintText: 'Email',
+          ),
+        ),
+        new TextField(
+          controller: _passwordController,
+          decoration: const InputDecoration(
+            hintText: 'Password',
+          ),
+          obscureText: true,
+        ),
+        new Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            new InkWell(
+              child: new Text(
+                'Forgot your password?',
+                style: new TextStyle(
+                  color: Colors.orange,
+                  fontSize: 15.0,
+                ),
+                softWrap: true,
+              ),
+              onTap: () {}, //IMPLEMENT FORGOT PASSWORD!!!
+            ),
+            new RaisedButton(
+              child: new Text('Sign in'),
+              onPressed: () {
+                _handleSignInWithEmailAndPassword()
+                    .then((FirebaseUser user) => print(user))
+                    .catchError((e) => _invalidEmailOrPasswordEntered(e));
+              },
+            ),
+          ],
+        ),
+      ],
+    );
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
@@ -169,27 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             _errorMessageSection,
             _welcomeSection,
-            new TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                hintText: 'Email',
-              ),
-            ),
-            new TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                hintText: 'Password',
-              ),
-              obscureText: true,
-            ),
-            new RaisedButton(
-              child: new Text('Sign in'),
-              onPressed: () {
-                _handleSignInWithEmailAndPassword()
-                    .then((FirebaseUser user) => print(user))
-                    .catchError((e) => _invalidEmailOrPasswordEntered(e));
-              },
-            ),
+            _signInForm,
             new RaisedButton(
               child: new Text('Sign in with Google'),
               onPressed: () {
