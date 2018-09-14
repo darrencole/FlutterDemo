@@ -135,6 +135,23 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
+    Widget _welcomeSection = new Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        new Container(
+          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+          child: new Text(
+            'Welcome',
+            style: Theme.of(context).textTheme.display1,
+          ),
+        ),
+        new Text(
+          _displayName,
+          style: Theme.of(context).textTheme.title,
+        ),
+      ],
+    );
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
@@ -151,14 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _errorMessageSection,
-            new Text(
-              'Welcome',
-              style: Theme.of(context).textTheme.display1,
-            ),
-            new Text(
-              _displayName,
-              style: Theme.of(context).textTheme.title,
-            ),
+            _welcomeSection,
             new TextField(
               controller: _emailController,
               decoration: const InputDecoration(
