@@ -126,6 +126,13 @@ class _MyHomePageState extends State<MyHomePage> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
+        actions: <Widget>[
+          new IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            onPressed: _signOut,
+            tooltip: 'Sign out',
+          ),
+        ],
       ),
       body: new Center(
         child: new Column(
@@ -171,10 +178,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     .then((FirebaseUser user) => print(user))
                     .catchError((e) => print(e));
               },
-            ),
-            new RaisedButton(
-              child: new Text('Sign out'),
-              onPressed: () => _signOut(),
             ),
           ],
         ),
