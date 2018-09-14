@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final FirebaseUser currentUser = await _auth.currentUser();
     setState(() {
       if (currentUser != null) {
-        _displayName = '${currentUser.displayName}';
+        _displayName = '${currentUser.email}';
       } else {
         _displayName = 'Not logged in';
       }
@@ -141,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             new Text(
               _displayName,
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.title,
             ),
             new TextField(
               controller: _emailController,
