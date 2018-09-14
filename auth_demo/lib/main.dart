@@ -31,6 +31,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String errorMessage = '';
   String _displayName;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -65,12 +66,39 @@ class _MyHomePageState extends State<MyHomePage> {
     return user;
   }
 
+  bool _validationPassed(String email, String password) {
+    setState(() {
+      errorMessage = '';
+      if (email == null || email == '') {
+        errorMessage = 'Email required. \n';
+      }
+      if (password == null || password == '') {
+        errorMessage = '${errorMessage}Password required.';
+      }
+    });
+
+    return errorMessage == '';
+  }
+
+  void _invalidEmailOrPasswordEntered(Exception e) {
+    setState(() {
+      errorMessage = 'Invalid email or password entered.';
+    });
+    print(e);
+  }
+
   Future<FirebaseUser> _handleSignInWithEmailAndPassword() async {
-    FirebaseUser user = await _auth.signInWithEmailAndPassword(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
-    _setDisplayName();
+    FirebaseUser user;
+    if (_validationPassed(
+      _emailController.text,
+      _passwordController.text,
+    )) {
+      user = await _auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      _setDisplayName();
+    }
 
     return user;
   }
@@ -104,6 +132,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Text(
+              errorMessage,
+              //style:  Theme.of(context).textTheme.display1,
+            ),
+            new Text(
               'Welcome',
               style: Theme.of(context).textTheme.display1,
             ),
@@ -128,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 _handleSignInWithEmailAndPassword()
                     .then((FirebaseUser user) => print(user))
-                    .catchError((e) => print(e));
+                    .catchError((e) => _invalidEmailOrPasswordEntered(e));
               },
             ),
             new RaisedButton(
