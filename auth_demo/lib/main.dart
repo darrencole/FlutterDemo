@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       errorMessage = '';
       if (email == null || email == '') {
-        errorMessage = 'Email required. \n';
+        errorMessage = 'Email required. ';
       }
       if (password == null || password == '') {
         errorMessage = '${errorMessage}Password required.';
@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     Widget _errorMessageSection = new Container(
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 32.0),
       child: new Text(
         errorMessage,
         style: new TextStyle(
@@ -135,21 +135,24 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
-    Widget _welcomeSection = new Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        new Container(
-          padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
-          child: new Text(
-            'Welcome',
-            style: Theme.of(context).textTheme.display1,
+    Widget _welcomeSection = new Container(
+      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 50.0),
+      child: new Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          new Container(
+            padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 8.0),
+            child: new Text(
+              'Welcome',
+              style: Theme.of(context).textTheme.display1,
+            ),
           ),
-        ),
-        new Text(
-          _displayName,
-          style: Theme.of(context).textTheme.title,
-        ),
-      ],
+          new Text(
+            _displayName,
+            style: Theme.of(context).textTheme.title,
+          ),
+        ],
+      ),
     );
 
     Widget _signInForm = new Column(
@@ -168,29 +171,32 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           obscureText: true,
         ),
-        new Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            new InkWell(
-              child: new Text(
-                'Forgot your password?',
-                style: new TextStyle(
-                  color: Colors.orange,
-                  fontSize: 15.0,
+        new Container(
+          padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 15.0),
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              new InkWell(
+                child: new Text(
+                  'Forgot your password?',
+                  style: new TextStyle(
+                    color: Colors.orange,
+                    fontSize: 15.0,
+                  ),
+                  softWrap: true,
                 ),
-                softWrap: true,
+                onTap: () {}, //IMPLEMENT FORGOT PASSWORD!!!
               ),
-              onTap: () {}, //IMPLEMENT FORGOT PASSWORD!!!
-            ),
-            new RaisedButton(
-              child: new Text('Sign in'),
-              onPressed: () {
-                _handleSignInWithEmailAndPassword()
-                    .then((FirebaseUser user) => print(user))
-                    .catchError((e) => _invalidEmailOrPasswordEntered(e));
-              },
-            ),
-          ],
+              new RaisedButton(
+                child: new Text('Sign in'),
+                onPressed: () {
+                  _handleSignInWithEmailAndPassword()
+                      .then((FirebaseUser user) => print(user))
+                      .catchError((e) => _invalidEmailOrPasswordEntered(e));
+                },
+              ),
+            ],
+          ),
         ),
         new RaisedButton(
           child: new Text('Sign in with Google'),
@@ -214,9 +220,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: new Container(
+        padding: const EdgeInsets.fromLTRB(32.0, 4.0, 32.0, 32.0),
+        child: new ListView(
           children: <Widget>[
             _errorMessageSection,
             _welcomeSection,
@@ -224,6 +230,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      resizeToAvoidBottomPadding: false,
     );
   }
 }
