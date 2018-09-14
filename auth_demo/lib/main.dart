@@ -123,9 +123,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget _errorMessageSection = Container(
+    Widget _errorMessageSection = new Container(
       padding: const EdgeInsets.all(32.0),
-      child: Text(
+      child: new Text(
         errorMessage,
         style: new TextStyle(
           color: Colors.red,
