@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String errorMessage;
+  String _errorMessage;
   String _screenName;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future _setScreenName() async {
     final FirebaseUser currentUser = await _auth.currentUser();
     setState(() {
-      errorMessage = '';
+      _errorMessage = '';
       if (currentUser != null) {
         _screenName = '${currentUser.email}';
       } else {
@@ -68,21 +68,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _validationPassed(String email, String password) {
     setState(() {
-      errorMessage = '';
+      _errorMessage = '';
       if (email == null || email == '') {
-        errorMessage = 'Email required. ';
+        _errorMessage = 'Email required. ';
       }
       if (password == null || password == '') {
-        errorMessage = '${errorMessage}Password required.';
+        _errorMessage = '${_errorMessage}Password required.';
       }
     });
 
-    return errorMessage == '';
+    return _errorMessage == '';
   }
 
   void _handleInvalidCredentials(Exception e) {
     setState(() {
-      errorMessage = 'Invalid email or password entered.';
+      _errorMessage = 'Invalid email or password entered.';
     });
     print(e);
   }
@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Widget _errorMessageSection = new Container(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 32.0),
       child: new Text(
-        errorMessage,
+        _errorMessage,
         style: new TextStyle(
           color: Colors.red,
           fontSize: 15.0,
