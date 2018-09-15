@@ -209,6 +209,35 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
+    Widget _signUpSection = new Container(
+      padding: const EdgeInsets.fromLTRB(0.0, 25.0, 0.0, 0.0),
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          new Text(
+            "Don't have an account? ",
+            style: new TextStyle(
+              color: Colors.blueAccent,
+              fontSize: 15.0,
+            ),
+            softWrap: true,
+          ),
+          new InkWell(
+            child: new Text(
+              'Sign up!',
+              style: new TextStyle(
+                color: Colors.blueAccent,
+                fontSize: 15.0,
+                decoration: TextDecoration.underline,
+              ),
+              softWrap: true,
+            ),
+            onTap: () {}, //IMPLEMENT SIGN UP!!!
+          ),
+        ],
+      ),
+    );
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text(widget.title),
@@ -227,6 +256,7 @@ class _MyHomePageState extends State<MyHomePage> {
             _errorMessageSection,
             _welcomeSection,
             _signInForm,
+            _signUpSection,
           ],
         ),
       ),
