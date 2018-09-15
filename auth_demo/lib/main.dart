@@ -87,6 +87,10 @@ class _MyHomePageState extends State<MyHomePage> {
     print(e);
   }
 
+  void _handleValidSignIn(FirebaseUser user) {
+    print(user);
+  }
+
   Future<FirebaseUser> _handleSignInWithEmailAndPassword() async {
     FirebaseUser user;
     if (_validationPassed(
@@ -191,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: new Text('Sign in'),
                 onPressed: () {
                   _handleSignInWithEmailAndPassword()
-                      .then((FirebaseUser user) => print(user))
+                      .then((FirebaseUser user) => _handleValidSignIn(user))
                       .catchError((e) => _handleInvalidCredentials(e));
                 },
               ),
@@ -202,7 +206,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: new Text('Sign in with Google'),
           onPressed: () {
             _handleGoogleSignIn()
-                .then((FirebaseUser user) => print(user))
+                .then((FirebaseUser user) => _handleValidSignIn(user))
                 .catchError((e) => print(e));
           },
         ),
