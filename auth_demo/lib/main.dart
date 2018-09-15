@@ -35,17 +35,14 @@ class _MyHomePageState extends State<MyHomePage> {
   String _screenName;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  bool _canSignIn;
 
   void _refreshScreen(FirebaseUser currentUser) {
     setState(() {
       _errorMessage = '';
       if (currentUser != null) {
         _screenName = '${currentUser.email}';
-        _canSignIn = false;
       } else {
         _screenName = 'Not logged in';
-        _canSignIn = true;
       }
       _emailController.clear();
       _passwordController.clear();
@@ -204,27 +201,22 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               new RaisedButton(
                 child: new Text('Sign in'),
-                onPressed: _canSignIn
-                    ? () {
-                        _handleSignInWithEmailAndPassword()
-                            .then(
-                                (FirebaseUser user) => _handleValidSignIn(user))
-                            .catchError((e) => _handleInvalidCredentials(e));
-                      }
-                    : null,
+                onPressed: () {
+                  _handleSignInWithEmailAndPassword()
+                      .then((FirebaseUser user) => _handleValidSignIn(user))
+                      .catchError((e) => _handleInvalidCredentials(e));
+                },
               ),
             ],
           ),
         ),
         new RaisedButton(
           child: new Text('Sign in with Google'),
-          onPressed: _canSignIn
-              ? () {
-                  _handleGoogleSignIn()
-                      .then((FirebaseUser user) => _handleValidSignIn(user))
-                      .catchError((e) => print(e));
-                }
-              : null,
+          onPressed: () {
+            _handleGoogleSignIn()
+                .then((FirebaseUser user) => _handleValidSignIn(user))
+                .catchError((e) => print(e));
+          },
         ),
       ],
     );
