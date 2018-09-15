@@ -45,6 +45,8 @@ class _MyHomePageState extends State<MyHomePage> {
       } else {
         _screenName = 'Not logged in';
       }
+      _emailController.clear();
+      _passwordController.clear();
     });
   }
 
