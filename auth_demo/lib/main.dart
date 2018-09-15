@@ -32,17 +32,17 @@ class _MyHomePageState extends State<MyHomePage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   String errorMessage = '';
-  String _displayName;
+  String _screenName;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  Future _setDisplayName() async {
+  Future _setScreenName() async {
     final FirebaseUser currentUser = await _auth.currentUser();
     setState(() {
       if (currentUser != null) {
-        _displayName = '${currentUser.email}';
+        _screenName = '${currentUser.email}';
       } else {
-        _displayName = 'Not logged in';
+        _screenName = 'Not logged in';
       }
     });
   }
@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _setDisplayName();
+    _setScreenName();
   }
 
   Future<FirebaseUser> _handleCreateUserWithEmailAndPassword(
@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
       email: email,
       password: password,
     );
-    _setDisplayName();
+    _setScreenName();
 
     return user;
   }
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      _setDisplayName();
+      _setScreenName();
     }
 
     return user;
@@ -111,14 +111,14 @@ class _MyHomePageState extends State<MyHomePage> {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    _setDisplayName();
+    _setScreenName();
 
     return user;
   }
 
   Future<void> _signOut() async {
     await _auth.signOut();
-    _setDisplayName();
+    _setScreenName();
   }
 
   @override
@@ -148,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           new Text(
-            _displayName,
+            _screenName,
             style: Theme.of(context).textTheme.title,
           ),
         ],
