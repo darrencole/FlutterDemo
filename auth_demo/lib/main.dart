@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return errorMessage == '';
   }
 
-  void _invalidEmailOrPasswordEntered(Exception e) {
+  void _handleInvalidCredentials(Exception e) {
     setState(() {
       errorMessage = 'Invalid email or password entered.';
     });
@@ -192,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   _handleSignInWithEmailAndPassword()
                       .then((FirebaseUser user) => print(user))
-                      .catchError((e) => _invalidEmailOrPasswordEntered(e));
+                      .catchError((e) => _handleInvalidCredentials(e));
                 },
               ),
             ],
