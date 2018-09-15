@@ -37,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _passwordController = TextEditingController();
   bool _canSignIn;
 
-  Future _refreshScreen(FirebaseUser currentUser) {
+  void _refreshScreen(FirebaseUser currentUser) {
     setState(() {
       _errorMessage = '';
       if (currentUser != null) {
