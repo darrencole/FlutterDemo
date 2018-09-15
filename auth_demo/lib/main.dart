@@ -31,7 +31,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String errorMessage = '';
+  String errorMessage;
   String _screenName;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -39,6 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future _setScreenName() async {
     final FirebaseUser currentUser = await _auth.currentUser();
     setState(() {
+      errorMessage = '';
       if (currentUser != null) {
         _screenName = '${currentUser.email}';
       } else {
@@ -61,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
       email: email,
       password: password,
     );
-    _setScreenName();
 
     return user;
   }
@@ -88,7 +88,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _handleValidSignIn(FirebaseUser user) {
-    print(user);
+    if (user != null) {
+      _setScreenName();
+      print(user);
+    }
   }
 
   Future<FirebaseUser> _handleSignInWithEmailAndPassword() async {
@@ -101,7 +104,6 @@ class _MyHomePageState extends State<MyHomePage> {
         email: _emailController.text,
         password: _passwordController.text,
       );
-      _setScreenName();
     }
 
     return user;
@@ -115,7 +117,6 @@ class _MyHomePageState extends State<MyHomePage> {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    _setScreenName();
 
     return user;
   }
