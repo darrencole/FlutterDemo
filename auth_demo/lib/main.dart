@@ -35,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _screenName;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  bool _canSignIn;
 
   Future _refreshScreen() async {
     final FirebaseUser currentUser = await _auth.currentUser();
@@ -42,8 +43,10 @@ class _MyHomePageState extends State<MyHomePage> {
       _errorMessage = '';
       if (currentUser != null) {
         _screenName = '${currentUser.email}';
+        _canSignIn = false;
       } else {
         _screenName = 'Not logged in';
+        _canSignIn = true;
       }
       _emailController.clear();
       _passwordController.clear();
@@ -196,22 +199,27 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               new RaisedButton(
                 child: new Text('Sign in'),
-                onPressed: () {
-                  _handleSignInWithEmailAndPassword()
-                      .then((FirebaseUser user) => _handleValidSignIn(user))
-                      .catchError((e) => _handleInvalidCredentials(e));
-                },
+                onPressed: _canSignIn
+                    ? () {
+                        _handleSignInWithEmailAndPassword()
+                            .then(
+                                (FirebaseUser user) => _handleValidSignIn(user))
+                            .catchError((e) => _handleInvalidCredentials(e));
+                      }
+                    : null,
               ),
             ],
           ),
         ),
         new RaisedButton(
           child: new Text('Sign in with Google'),
-          onPressed: () {
-            _handleGoogleSignIn()
-                .then((FirebaseUser user) => _handleValidSignIn(user))
-                .catchError((e) => print(e));
-          },
+          onPressed: _canSignIn
+              ? () {
+                  _handleGoogleSignIn()
+                      .then((FirebaseUser user) => _handleValidSignIn(user))
+                      .catchError((e) => print(e));
+                }
+              : null,
         ),
       ],
     );
