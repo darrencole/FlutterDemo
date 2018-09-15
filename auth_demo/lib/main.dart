@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  Future _setScreenName() async {
+  Future _refreshScreen() async {
     final FirebaseUser currentUser = await _auth.currentUser();
     setState(() {
       _errorMessage = '';
@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _setScreenName();
+    _refreshScreen();
   }
 
   Future<FirebaseUser> _handleCreateUserWithEmailAndPassword(
@@ -89,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _handleValidSignIn(FirebaseUser user) {
     if (user != null) {
-      _setScreenName();
+      _refreshScreen();
       print(user);
     }
   }
@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _signOut() async {
     await _auth.signOut();
-    _setScreenName();
+    _refreshScreen();
   }
 
   @override
