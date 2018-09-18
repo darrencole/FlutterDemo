@@ -91,46 +91,52 @@ class SignUpState extends State<SignUp> {
       ),
     );
 
-    Widget _signUpForm = new Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        new Container(
-          padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 15.0),
-          child: new Column(
-            children: <Widget>[
-              new TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  hintText: 'Email',
-                ),
+    Widget _signUpForm() {
+      if (_showVerificationMessage) {
+        return new Text('');
+      } else {
+        return new Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            new Container(
+              padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 15.0),
+              child: new Column(
+                children: <Widget>[
+                  new TextField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      hintText: 'Email',
+                    ),
+                  ),
+                  new TextField(
+                    controller: _passwordController,
+                    decoration: const InputDecoration(
+                      hintText: 'Choose a password',
+                    ),
+                    obscureText: true,
+                  ),
+                  new TextField(
+                    controller: _confirmPasswordController,
+                    decoration: const InputDecoration(
+                      hintText: 'Confirm password',
+                    ),
+                    obscureText: true,
+                  ),
+                ],
               ),
-              new TextField(
-                controller: _passwordController,
-                decoration: const InputDecoration(
-                  hintText: 'Choose a password',
-                ),
-                obscureText: true,
-              ),
-              new TextField(
-                controller: _confirmPasswordController,
-                decoration: const InputDecoration(
-                  hintText: 'Confirm password',
-                ),
-                obscureText: true,
-              ),
-            ],
-          ),
-        ),
-        new RaisedButton(
-          child: new Text('Submit'),
-          onPressed: () {
-            _handleCreateUserWithEmailAndPassword()
-                .then((FirebaseUser user) => _sendEmailVerification(user))
-                .catchError((e) => _handleExceptions(e));
-          },
-        ),
-      ],
-    );
+            ),
+            new RaisedButton(
+              child: new Text('Submit'),
+              onPressed: () {
+                _handleCreateUserWithEmailAndPassword()
+                    .then((FirebaseUser user) => _sendEmailVerification(user))
+                    .catchError((e) => _handleExceptions(e));
+              },
+            ),
+          ],
+        );
+      }
+    }
 
     Widget _verificationMessage() {
       if (_showVerificationMessage) {
@@ -164,7 +170,7 @@ class SignUpState extends State<SignUp> {
               'Create new account:',
               style: Theme.of(context).textTheme.title,
             ),
-            _signUpForm,
+            _signUpForm(),
             _verificationMessage(),
           ],
         ),
