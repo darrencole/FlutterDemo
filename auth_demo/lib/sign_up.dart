@@ -10,13 +10,69 @@ class SignUp extends StatefulWidget {
 }
 
 class SignUpState extends State<SignUp> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _confirmPasswordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    Widget _signUpForm = new Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        new Container(
+          padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 15.0),
+          child: new Column(
+            children: <Widget>[
+              new TextField(
+                controller: _emailController,
+                decoration: const InputDecoration(
+                  hintText: 'Email',
+                ),
+              ),
+              new TextField(
+                controller: _passwordController,
+                decoration: const InputDecoration(
+                  hintText: 'Choose a password',
+                ),
+                obscureText: true,
+              ),
+              new TextField(
+                controller: _confirmPasswordController,
+                decoration: const InputDecoration(
+                  hintText: 'Confirm password',
+                ),
+                obscureText: true,
+              ),
+            ],
+          ),
+        ),
+        new RaisedButton(
+          child: new Text('Submit'),
+          onPressed: () {
+            /*_handleGoogleSignIn()
+                .then((FirebaseUser user) => _handleValidSignIn(user))
+                .catchError((e) => print(e));*/
+          },
+        ),
+      ],
+    );
+
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Auth Demo Sign Up'),
       ),
-      body: new Text('Sign Up'),
+      body: new Container(
+        padding: const EdgeInsets.fromLTRB(32.0, 25.0, 32.0, 32.0),
+        child: new ListView(
+          children: <Widget>[
+            new Text(
+              'Create new account:',
+              style: Theme.of(context).textTheme.title,
+            ),
+            _signUpForm,
+          ],
+        ),
+      ),
     );
   }
 }
