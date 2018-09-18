@@ -69,7 +69,7 @@ class SignUpState extends State<SignUp> {
     return user;
   }
 
-  void _sendVerificationEmail(FirebaseUser user) async {
+  void _sendEmailVerification(FirebaseUser user) async {
     print(user);
     user.sendEmailVerification();
     setState(() {
@@ -126,7 +126,7 @@ class SignUpState extends State<SignUp> {
           child: new Text('Submit'),
           onPressed: () {
             _handleCreateUserWithEmailAndPassword()
-                .then((FirebaseUser user) => _sendVerificationEmail(user))
+                .then((FirebaseUser user) => _sendEmailVerification(user))
                 .catchError((e) => _handleExceptions(e));
           },
         ),
