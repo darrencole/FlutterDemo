@@ -67,6 +67,12 @@ class SignUpState extends State<SignUp> {
     return user;
   }
 
+  void _sendVerificationEmail(FirebaseUser user) async{
+    print(user);
+    user.sendEmailVerification();
+    await _auth.signOut();
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget _errorMessageSection = new Container(
@@ -116,7 +122,7 @@ class SignUpState extends State<SignUp> {
           onPressed: () {
             _handleCreateUserWithEmailAndPassword()
                 .then((FirebaseUser user) =>
-                    print(user)) //_handleValidSignIn(user))
+                    _sendVerificationEmail(user))
                 .catchError((e) => _handleExceptions(e));
           },
         ),
