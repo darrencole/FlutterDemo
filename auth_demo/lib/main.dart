@@ -88,8 +88,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _handleValidSignIn(FirebaseUser user) {
     if (user != null) {
-      _refreshScreen(user);
-      print(user);
+      if(user.isEmailVerified) {
+        _refreshScreen(user);
+        print(user);
+      }
+      else{
+        setState(() {
+          _errorMessage = 'Invalid email or password entered.';
+        });
+      }
     }
   }
 
