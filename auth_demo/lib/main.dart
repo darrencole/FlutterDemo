@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:auth_demo/sign_up.dart';
+import 'package:auth_demo/forgot_password.dart';
 
 void main() => runApp(new MyApp());
 
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       home: new MyHomePage(title: 'Auth Demo Sign In'),
       routes: <String, WidgetBuilder>{
         '/signUp': (BuildContext context) => new SignUp(),
+        '/forgotPassword': (BuildContext context) => new ForgotPassword(),
       },
     );
   }
@@ -88,11 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _handleValidSignIn(FirebaseUser user) {
     if (user != null) {
-      if(user.isEmailVerified) {
+      if (user.isEmailVerified) {
         _refreshScreen(user);
         print(user);
-      }
-      else{
+      } else {
         setState(() {
           _errorMessage = 'Invalid email or password entered.';
         });
@@ -197,7 +198,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   softWrap: true,
                 ),
-                onTap: () {}, //IMPLEMENT FORGOT PASSWORD!!!
+                onTap: () {
+                  Navigator.of(context).pushNamed('/forgotPassword');
+                },
               ),
               new RaisedButton(
                 child: new Text('Sign in'),
@@ -246,7 +249,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             onTap: () {
               Navigator.of(context).pushNamed('/signUp');
-            }, //IMPLEMENT SIGN UP!!!
+            },
           ),
         ],
       ),
