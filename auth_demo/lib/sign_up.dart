@@ -10,9 +10,23 @@ class SignUp extends StatefulWidget {
 }
 
 class SignUpState extends State<SignUp> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+
+  Future<FirebaseUser> _handleCreateUserWithEmailAndPassword(
+    String email,
+    String password,
+    String confirmedPassword,
+  ) async {
+    FirebaseUser user = await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    return user;
+  }
 
   @override
   Widget build(BuildContext context) {

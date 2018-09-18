@@ -65,18 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
         .then((FirebaseUser currentUser) => _refreshScreen(currentUser));
   }
 
-  Future<FirebaseUser> _handleCreateUserWithEmailAndPassword(
-    String email,
-    String password,
-  ) async {
-    FirebaseUser user = await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
-
-    return user;
-  }
-
   bool _validationPassed(String email, String password) {
     setState(() {
       _errorMessage = '';
