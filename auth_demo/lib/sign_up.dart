@@ -22,11 +22,39 @@ class SignUpState extends State<SignUp> {
     _errorMessage = '';
   }
 
+  bool _validationPassed(
+      String email, String password, String confirmPassword) {
+    setState(() {
+      _errorMessage = '';
+      if (email == null || email == '') {
+        _errorMessage = 'Email required. ';
+      }
+      if (password == null || password == '') {
+        _errorMessage = '${_errorMessage}Password required. ';
+      }
+      if (confirmPassword == null || confirmPassword == '') {
+        _errorMessage = '${_errorMessage}Password confirmation required.';
+      }
+      if (_errorMessage == '' && password != confirmPassword) {
+        _errorMessage = 'Password and Confirmed Password do not match.';
+      }
+    });
+
+    return _errorMessage == '';
+  }
+
   Future<FirebaseUser> _handleCreateUserWithEmailAndPassword() async {
-    FirebaseUser user = await _auth.createUserWithEmailAndPassword(
-      email: _emailController.text,
-      password: _passwordController.text,
-    );
+    FirebaseUser user;
+    if (_validationPassed(
+      _emailController.text,
+      _passwordController.text,
+      _confirmPasswordController.text,
+    )) {
+      user = await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+    }
 
     return user;
   }
@@ -79,7 +107,8 @@ class SignUpState extends State<SignUp> {
           child: new Text('Submit'),
           onPressed: () {
             _handleCreateUserWithEmailAndPassword()
-                .then((FirebaseUser user) => print(user))//_handleValidSignIn(user))
+                .then((FirebaseUser user) =>
+                    print(user)) //_handleValidSignIn(user))
                 .catchError((e) => print(e));
           },
         ),
