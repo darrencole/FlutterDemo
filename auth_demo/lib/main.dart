@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:auth_demo/sign_up.dart';
+
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -15,6 +17,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: new MyHomePage(title: 'Auth Demo Sign In'),
+      routes: <String, WidgetBuilder>{
+        '/signUp': (BuildContext context) => new SignUp(),
+      },
     );
   }
 }
@@ -244,7 +249,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               softWrap: true,
             ),
-            onTap: () {}, //IMPLEMENT SIGN UP!!!
+            onTap: () {
+              Navigator.of(context).pushNamed('/signUp');
+            }, //IMPLEMENT SIGN UP!!!
           ),
         ],
       ),
