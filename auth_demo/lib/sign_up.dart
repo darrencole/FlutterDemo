@@ -11,9 +11,16 @@ class SignUp extends StatefulWidget {
 
 class SignUpState extends State<SignUp> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String _errorMessage;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _errorMessage = '';
+  }
 
   Future<FirebaseUser> _handleCreateUserWithEmailAndPassword() async {
     FirebaseUser user = await _auth.createUserWithEmailAndPassword(
@@ -26,6 +33,18 @@ class SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
+    Widget _errorMessageSection = new Container(
+      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 32.0),
+      child: new Text(
+        _errorMessage,
+        style: new TextStyle(
+          color: Colors.red,
+          fontSize: 15.0,
+        ),
+        softWrap: true,
+      ),
+    );
+
     Widget _signUpForm = new Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
@@ -72,9 +91,10 @@ class SignUpState extends State<SignUp> {
         title: new Text('Auth Demo Sign Up'),
       ),
       body: new Container(
-        padding: const EdgeInsets.fromLTRB(32.0, 25.0, 32.0, 32.0),
+        padding: const EdgeInsets.fromLTRB(32.0, 4.0, 32.0, 32.0),
         child: new ListView(
           children: <Widget>[
+            _errorMessageSection,
             new Text(
               'Create new account:',
               style: Theme.of(context).textTheme.title,
