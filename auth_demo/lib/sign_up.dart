@@ -140,17 +140,28 @@ class SignUpState extends State<SignUp> {
 
     Widget _verificationMessage() {
       if (_showVerificationMessage) {
-        return new Container(
-          padding: const EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0),
-          child: new Text(
-            '''An email was sent to the email address. Open the email and click on the link provided to complete the sign-up process.''',
-            style: new TextStyle(
-              color: Colors.green,
-              fontSize: 15.0,
-              fontWeight: FontWeight.bold,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            new Container(
+              padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 15.0),
+              child: new Text(
+                '''An email was sent to your email address. Open the email and click on the link provided to complete the sign-up process.''',
+                style: new TextStyle(
+                  color: Colors.green,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
+                softWrap: true,
+              ),
             ),
-            softWrap: true,
-          ),
+            new RaisedButton(
+              child: new Text('Ok'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
         );
       } else {
         return new Text('');
