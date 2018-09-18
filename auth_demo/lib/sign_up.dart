@@ -15,14 +15,10 @@ class SignUpState extends State<SignUp> {
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
 
-  Future<FirebaseUser> _handleCreateUserWithEmailAndPassword(
-    String email,
-    String password,
-    String confirmedPassword,
-  ) async {
+  Future<FirebaseUser> _handleCreateUserWithEmailAndPassword() async {
     FirebaseUser user = await _auth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
+      email: _emailController.text,
+      password: _passwordController.text,
     );
 
     return user;
@@ -63,9 +59,9 @@ class SignUpState extends State<SignUp> {
         new RaisedButton(
           child: new Text('Submit'),
           onPressed: () {
-            /*_handleGoogleSignIn()
-                .then((FirebaseUser user) => _handleValidSignIn(user))
-                .catchError((e) => print(e));*/
+            _handleCreateUserWithEmailAndPassword()
+                .then((FirebaseUser user) => print(user))//_handleValidSignIn(user))
+                .catchError((e) => print(e));
           },
         ),
       ],
