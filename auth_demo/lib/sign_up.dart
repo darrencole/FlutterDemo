@@ -15,11 +15,13 @@ class SignUpState extends State<SignUp> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
+  bool _showVerificationMessage;
 
   @override
   void initState() {
     super.initState();
     _errorMessage = '';
+    _showVerificationMessage = false;
   }
 
   bool _validationPassed(
@@ -67,9 +69,12 @@ class SignUpState extends State<SignUp> {
     return user;
   }
 
-  void _sendVerificationEmail(FirebaseUser user) async{
+  void _sendVerificationEmail(FirebaseUser user) async {
     print(user);
     user.sendEmailVerification();
+    setState(() {
+      _showVerificationMessage = true;
+    });
     await _auth.signOut();
   }
 
@@ -121,13 +126,31 @@ class SignUpState extends State<SignUp> {
           child: new Text('Submit'),
           onPressed: () {
             _handleCreateUserWithEmailAndPassword()
-                .then((FirebaseUser user) =>
-                    _sendVerificationEmail(user))
+                .then((FirebaseUser user) => _sendVerificationEmail(user))
                 .catchError((e) => _handleExceptions(e));
           },
         ),
       ],
     );
+
+    Widget _verificationMessage() {
+      if (_showVerificationMessage) {
+        return new Container(
+          padding: const EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0),
+          child: new Text(
+            '''An email was sent to the email address. Open the email and click on the link provided to complete the sign-up process.''',
+            style: new TextStyle(
+              color: Colors.green,
+              fontSize: 15.0,
+              fontWeight: FontWeight.bold,
+            ),
+            softWrap: true,
+          ),
+        );
+      } else {
+        return new Text('');
+      }
+    }
 
     return new Scaffold(
       appBar: new AppBar(
@@ -143,6 +166,7 @@ class SignUpState extends State<SignUp> {
               style: Theme.of(context).textTheme.title,
             ),
             _signUpForm,
+            _verificationMessage(),
           ],
         ),
       ),
