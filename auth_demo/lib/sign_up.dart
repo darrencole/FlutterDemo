@@ -43,6 +43,14 @@ class SignUpState extends State<SignUp> {
     return _errorMessage == '';
   }
 
+  void _handleExceptions(Exception e) {
+    final List<String> message = e.toString().split(',');
+    setState(() {
+      _errorMessage = message[1].substring(1);
+    });
+    print(e);
+  }
+
   Future<FirebaseUser> _handleCreateUserWithEmailAndPassword() async {
     FirebaseUser user;
     if (_validationPassed(
@@ -109,7 +117,7 @@ class SignUpState extends State<SignUp> {
             _handleCreateUserWithEmailAndPassword()
                 .then((FirebaseUser user) =>
                     print(user)) //_handleValidSignIn(user))
-                .catchError((e) => print(e));
+                .catchError((e) => _handleExceptions(e));
           },
         ),
       ],
