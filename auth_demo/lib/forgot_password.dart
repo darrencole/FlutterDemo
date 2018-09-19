@@ -40,6 +40,15 @@ class ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
+    Widget _errorMessageSection = new Text(
+      _errorMessage,
+      style: new TextStyle(
+        color: Colors.red,
+        fontSize: 15.0,
+      ),
+      softWrap: true,
+    );
+
     Widget _subtitle = new Container(
       padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 0.0),
       child: new Text(
@@ -121,6 +130,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
         padding: const EdgeInsets.fromLTRB(32.0, 4.0, 32.0, 32.0),
         child: new ListView(
           children: <Widget>[
+            _errorMessageSection,
             _subtitle,
             _resetPasswordForm(),
             _verificationMessage(),
