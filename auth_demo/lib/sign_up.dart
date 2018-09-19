@@ -181,9 +181,8 @@ class SignUpState extends State<SignUp> {
             new ErrorMessageSection(
               errorMessage: _errorMessage,
             ),
-            new Text(
-              'Create new account:',
-              style: Theme.of(context).textTheme.title,
+            new Subtitle(
+              text: 'Create new account:',
             ),
             _signUpForm(),
             _verificationMessage(),
