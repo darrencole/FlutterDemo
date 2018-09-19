@@ -81,18 +81,6 @@ class SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    /*Widget _errorMessageSection = new Container(
-      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 32.0),
-      child: new Text(
-        _errorMessage,
-        style: new TextStyle(
-          color: Colors.red,
-          fontSize: 15.0,
-        ),
-        softWrap: true,
-      ),
-    );*/
-
     Widget _signUpForm() {
       if (_showVerificationMessage) {
         return new Text('');
@@ -146,29 +134,6 @@ class SignUpState extends State<SignUp> {
           message:
               '''An email was sent to your email address. Open the email and click on the link provided to complete the sign-up process.''',
         );
-        /*return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            new Container(
-              padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 15.0),
-              child: new Text(
-                '''An email was sent to your email address. Open the email and click on the link provided to complete the sign-up process.''',
-                style: new TextStyle(
-                  color: Colors.green,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                softWrap: true,
-              ),
-            ),
-            new RaisedButton(
-              child: new Text('Ok'),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        );*/
       } else {
         return new Text('');
       }
