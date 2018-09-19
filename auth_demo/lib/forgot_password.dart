@@ -113,7 +113,11 @@ class ForgotPasswordState extends State<ForgotPassword> {
 
     Widget _verificationMessage() {
       if (_showVerificationMessage) {
-        return Column(
+        return new VerificationMessage(
+          message:
+              '''An email was sent to your email address. Open the email and follow the instructions to reset your password.''',
+        );
+        /*return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             new Container(
@@ -135,7 +139,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
               },
             ),
           ],
-        );
+        );*/
       } else {
         return new Text('');
       }
