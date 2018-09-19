@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:auth_demo/custom_widgets.dart';
+
 class ForgotPassword extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new ForgotPasswordState();
@@ -57,14 +59,14 @@ class ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
-    Widget _errorMessageSection = new Text(
+    /*Widget _errorMessageSection = new Text(
       _errorMessage,
       style: new TextStyle(
         color: Colors.red,
         fontSize: 15.0,
       ),
       softWrap: true,
-    );
+    );*/
 
     Widget _subtitle = new Container(
       padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 0.0),
@@ -147,7 +149,9 @@ class ForgotPasswordState extends State<ForgotPassword> {
         padding: const EdgeInsets.fromLTRB(32.0, 4.0, 32.0, 32.0),
         child: new ListView(
           children: <Widget>[
-            _errorMessageSection,
+            new ErrorMessageSection(
+              errorMessage: _errorMessage,
+            ),
             _subtitle,
             _resetPasswordForm(),
             _verificationMessage(),
