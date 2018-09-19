@@ -277,7 +277,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      resizeToAvoidBottomPadding: false,
     );
   }
 }
