@@ -68,13 +68,13 @@ class ForgotPasswordState extends State<ForgotPassword> {
       softWrap: true,
     );*/
 
-    Widget _subtitle = new Container(
+    /*Widget _subtitle = new Container(
       padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 0.0),
       child: new Text(
         'Reset Password',
         style: Theme.of(context).textTheme.title,
       ),
-    );
+    );*/
 
     Widget _resetPasswordForm() {
       if (_showVerificationMessage) {
@@ -152,7 +152,9 @@ class ForgotPasswordState extends State<ForgotPassword> {
             new ErrorMessageSection(
               errorMessage: _errorMessage,
             ),
-            _subtitle,
+            new Subtitle(
+              text: 'Reset Password',
+            ),
             _resetPasswordForm(),
             _verificationMessage(),
           ],

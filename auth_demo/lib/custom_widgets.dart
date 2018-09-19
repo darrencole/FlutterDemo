@@ -17,3 +17,20 @@ class ErrorMessageSection extends StatelessWidget {
     );
   }
 }
+
+class Subtitle extends StatelessWidget {
+  Subtitle({this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 0.0),
+      child: new Text(
+        text,
+        style: Theme.of(context).textTheme.title,
+      ),
+    );
+  }
+}
