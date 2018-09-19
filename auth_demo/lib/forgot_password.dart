@@ -21,8 +21,23 @@ class ForgotPasswordState extends State<ForgotPassword> {
     _showVerificationMessage = false;
   }
 
-  Future<void> _handlePasswordReset() async {
-    await _auth.sendPasswordResetEmail(email: _emailController.text);
+  bool _validationPassed(String email) {
+    setState(() {
+      _errorMessage = '';
+      if (email == null || email == '') {
+        _errorMessage = 'Email required. ';
+      }
+    });
+
+    return _errorMessage == '';
+  }
+
+  Future<bool> _handlePasswordReset() async {
+    if (_validationPassed(_emailController.text)) {
+      await _auth.sendPasswordResetEmail(email: _emailController.text);
+      return true;
+    }
+    return false;
   }
 
   void _handleInvalidEmail(Exception e) {
@@ -32,10 +47,12 @@ class ForgotPasswordState extends State<ForgotPassword> {
     print(e);
   }
 
-  void _handleValidReset() {
-    setState(() {
-      _showVerificationMessage = true;
-    });
+  void _handleValidReset(bool success) {
+    if (success) {
+      setState(() {
+        _showVerificationMessage = true;
+      });
+    }
   }
 
   @override
@@ -83,7 +100,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
               child: new Text('Submit'),
               onPressed: () {
                 _handlePasswordReset()
-                    .then((blank) => _handleValidReset())
+                    .then((success) => _handleValidReset(success))
                     .catchError((e) => _handleInvalidEmail(e));
               },
             ),
