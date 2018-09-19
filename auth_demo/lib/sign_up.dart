@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:auth_demo/custom_widgets.dart';
+
 class SignUp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => new SignUpState();
@@ -79,7 +81,7 @@ class SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    Widget _errorMessageSection = new Container(
+    /*Widget _errorMessageSection = new Container(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 32.0),
       child: new Text(
         _errorMessage,
@@ -89,7 +91,7 @@ class SignUpState extends State<SignUp> {
         ),
         softWrap: true,
       ),
-    );
+    );*/
 
     Widget _signUpForm() {
       if (_showVerificationMessage) {
@@ -176,7 +178,9 @@ class SignUpState extends State<SignUp> {
         padding: const EdgeInsets.fromLTRB(32.0, 4.0, 32.0, 32.0),
         child: new ListView(
           children: <Widget>[
-            _errorMessageSection,
+            new ErrorMessageSection(
+              errorMessage: _errorMessage,
+            ),
             new Text(
               'Create new account:',
               style: Theme.of(context).textTheme.title,
