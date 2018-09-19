@@ -59,23 +59,6 @@ class ForgotPasswordState extends State<ForgotPassword> {
 
   @override
   Widget build(BuildContext context) {
-    /*Widget _errorMessageSection = new Text(
-      _errorMessage,
-      style: new TextStyle(
-        color: Colors.red,
-        fontSize: 15.0,
-      ),
-      softWrap: true,
-    );*/
-
-    /*Widget _subtitle = new Container(
-      padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 0.0),
-      child: new Text(
-        'Reset Password',
-        style: Theme.of(context).textTheme.title,
-      ),
-    );*/
-
     Widget _resetPasswordForm() {
       if (_showVerificationMessage) {
         return new Text('');
@@ -117,29 +100,6 @@ class ForgotPasswordState extends State<ForgotPassword> {
           message:
               '''An email was sent to your email address. Open the email and follow the instructions to reset your password.''',
         );
-        /*return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            new Container(
-              padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 15.0),
-              child: new Text(
-                '''An email was sent to your email address. Open the email and follow the instructions to reset your password.''',
-                style: new TextStyle(
-                  color: Colors.green,
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                softWrap: true,
-              ),
-            ),
-            new RaisedButton(
-              child: new Text('Ok'),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        );*/
       } else {
         return new Text('');
       }
