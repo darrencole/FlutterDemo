@@ -32,6 +32,12 @@ class ForgotPasswordState extends State<ForgotPassword> {
     print(e);
   }
 
+  void _handleValidReset() {
+    setState(() {
+      _showVerificationMessage = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget _subtitle = new Container(
@@ -68,9 +74,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
               child: new Text('Submit'),
               onPressed: () {
                 _handlePasswordReset()
-                    .then((blank) => () {
-                          _showVerificationMessage = true;
-                        })
+                    .then((blank) => _handleValidReset())
                     .catchError((e) => _handleInvalidEmail(e));
               },
             ),
