@@ -142,7 +142,11 @@ class SignUpState extends State<SignUp> {
 
     Widget _verificationMessage() {
       if (_showVerificationMessage) {
-        return Column(
+        return VerificationMessage(
+          message:
+              '''An email was sent to your email address. Open the email and click on the link provided to complete the sign-up process.''',
+        );
+        /*return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             new Container(
@@ -164,7 +168,7 @@ class SignUpState extends State<SignUp> {
               },
             ),
           ],
-        );
+        );*/
       } else {
         return new Text('');
       }
