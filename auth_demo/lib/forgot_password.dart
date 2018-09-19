@@ -9,14 +9,27 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class ForgotPasswordState extends State<ForgotPassword> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String _errorMessage;
   TextEditingController _emailController = TextEditingController();
   bool _showVerificationMessage;
 
   @override
   void initState() {
     super.initState();
-    //_errorMessage = '';
+    _errorMessage = '';
     _showVerificationMessage = false;
+  }
+
+  Future<void> _handlePasswordReset() async {
+    await _auth.sendPasswordResetEmail(email: _emailController.text);
+  }
+
+  void _handleInvalidEmail(Exception e) {
+    setState(() {
+      _errorMessage = 'Invalid email entered.';
+    });
+    print(e);
   }
 
   @override
@@ -54,9 +67,11 @@ class ForgotPasswordState extends State<ForgotPassword> {
             new RaisedButton(
               child: new Text('Submit'),
               onPressed: () {
-                /*_handleCreateUserWithEmailAndPassword()
-              .then((FirebaseUser user) => _sendEmailVerification(user))
-              .catchError((e) => _handleExceptions(e));*/
+                _handlePasswordReset()
+                    .then((blank) => () {
+                          _showVerificationMessage = true;
+                        })
+                    .catchError((e) => _handleInvalidEmail(e));
               },
             ),
           ],
