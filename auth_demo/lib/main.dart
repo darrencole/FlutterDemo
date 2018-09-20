@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:auth_demo/sign_up.dart';
 import 'package:auth_demo/forgot_password.dart';
+import 'package:auth_demo/custom_widgets.dart';
 
 void main() => runApp(new MyApp());
 
@@ -136,20 +137,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget _errorMessageSection = new Container(
-      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 32.0),
-      child: new Text(
-        _errorMessage,
-        style: new TextStyle(
-          color: Colors.red,
-          fontSize: 15.0,
-        ),
-        softWrap: true,
-      ),
-    );
-
     Widget _welcomeSection = new Container(
-      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 50.0),
+      padding: const EdgeInsets.fromLTRB(0.0, 32.0, 0.0, 50.0),
       child: new Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -270,7 +259,9 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.fromLTRB(32.0, 4.0, 32.0, 32.0),
         child: new ListView(
           children: <Widget>[
-            _errorMessageSection,
+            new ErrorMessageSection(
+              errorMessage: _errorMessage,
+            ),
             _welcomeSection,
             _signInForm,
             _signUpSection,
